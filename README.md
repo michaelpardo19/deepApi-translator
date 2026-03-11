@@ -1,107 +1,86 @@
-# DeepL Translator Local
+# DeepL Translator — Vercel Deploy
 
-Traductor local completo basado en la API de DeepL, con backend Node.js + Express.
-
-## Características
-
-- ✅ **Traducción de texto** en tiempo real (hasta 5.000 caracteres)
-- ✅ **Detección automática** del idioma de origen
-- ✅ **Intercambio** de idiomas de origen/destino
-- ✅ **Traducción de documentos** (.pdf, .docx, .pptx, .xlsx, .txt, .html, .rtf, .odt)
-- ✅ **Descarga** del documento traducido
-- ✅ **Monitor de uso** de caracteres de tu cuenta
-- ✅ **API key segura** — nunca se expone al navegador
-
----
-
-## Instalación
-
-### 1. Instalar dependencias
-
-```bash
-npm install
-```
-
-### 2. Configurar la API key
-
-Copia el archivo de ejemplo y añade tu clave:
-
-```bash
-cp .env.example .env
-```
-
-Edita `.env`:
-
-```
-DEEPL_API_KEY=tu_api_key_aqui
-```
-
-> 💡 Si usas la cuenta **Free**, tu clave termina en `:fx`. El servidor lo detecta automáticamente y usa el endpoint correcto (`api-free.deepl.com`).
-
----
-
-## Uso
-
-```bash
-npm start
-```
-
-Abre el navegador en: **http://localhost:3000**
-
-Para desarrollo con auto-reinicio:
-
-```bash
-npm run dev
-```
-
----
+Traductor local/web basado en la API de DeepL, adaptado para desplegarse en **Vercel** con Serverless Functions.
 
 ## Estructura del proyecto
 
 ```
 deepl-translator/
-├── server.js           # Backend Express (proxy seguro a DeepL)
+├── api/
+│   ├── languages.js          # GET  /api/languages
+│   ├── translate.js          # POST /api/translate
+│   ├── translate-document.js # POST /api/translate-document
+│   └── usage.js              # GET  /api/usage
 ├── public/
-│   └── index.html      # Frontend completo (una sola página)
-├── uploads/            # Carpeta temporal para documentos (se limpia automáticamente)
-├── .env                # Tu API key (no subas esto a git)
-├── .env.example        # Plantilla de configuración
-├── .gitignore
+│   ├── index.html
+│   ├── styles.css
+│   └── app.js
+├── vercel.json
 └── package.json
 ```
 
 ---
 
-## Endpoints del servidor
+## Deploy en Vercel
 
-| Método | Ruta                      | Descripción                      |
-|--------|---------------------------|----------------------------------|
-| GET    | `/api/languages`          | Lista de idiomas disponibles     |
-| POST   | `/api/translate`          | Traducir texto                   |
-| POST   | `/api/translate-document` | Subir y traducir documento       |
-| GET    | `/api/usage`              | Uso de caracteres de tu cuenta   |
+### 1. Sube el código a GitHub
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/tu-usuario/deepl-translator.git
+git push -u origin main
+```
+
+### 2. Importa el proyecto en Vercel
+
+1. Ve a [vercel.com](https://vercel.com) → **Add New Project**
+2. Selecciona tu repositorio de GitHub
+3. Vercel detectará automáticamente la configuración
+
+### 3. ⚠️ Configura la variable de entorno (IMPRESCINDIBLE)
+
+En Vercel, antes de hacer deploy:
+
+1. Ve a tu proyecto → **Settings** → **Environment Variables**
+2. Añade:
+   - **Name:** `DEEPL_API_KEY`
+   - **Value:** tu clave de DeepL (termina en `:fx` si es la cuenta Free)
+   - **Environment:** Production, Preview, Development (marca los tres)
+3. Haz clic en **Save**
+4. Ve a **Deployments** → haz clic en los tres puntos del último deploy → **Redeploy**
+
+> Sin este paso la app dará error 500 en todas las llamadas a la API.
 
 ---
 
-## Formatos de documento soportados
+## Uso en local (opcional)
 
-| Formato | Extensión |
-|---------|-----------|
-| PDF     | `.pdf`    |
-| Word    | `.docx`, `.doc` |
-| PowerPoint | `.pptx` |
-| Excel   | `.xlsx`   |
-| Texto   | `.txt`    |
-| HTML    | `.html`, `.htm` |
-| RTF     | `.rtf`    |
-| OpenDocument | `.odt` |
+```bash
+npm install
+```
 
-> Límite de tamaño: **10 MB por archivo** (límite de la API Free de DeepL).
+Crea un archivo `.env.local` (Vercel CLI lo lee automáticamente):
+
+```
+DEEPL_API_KEY=tu_api_key_aqui
+```
+
+Instala Vercel CLI y arranca el entorno local:
+
+```bash
+npm i -g vercel
+vercel dev
+```
+
+Abre **http://localhost:3000**
 
 ---
 
-## Notas sobre la API Free
+## Notas sobre la cuenta Free de DeepL
 
+- Las claves Free terminan en `:fx` — el código lo detecta automáticamente y usa `api-free.deepl.com`
 - Límite mensual: **500.000 caracteres**
-- El uso se muestra en la esquina superior derecha de la interfaz
-- Documentos almacenados temporalmente en DeepL; descárgalos cuanto antes
+- Documentos: máximo **10 MB** por archivo
+- Formatos soportados: `.pdf`, `.docx`, `.pptx`, `.xlsx`, `.txt`, `.html`, `.rtf`, `.odt`
