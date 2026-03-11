@@ -1,18 +1,18 @@
 :root {
-  --bg: #0d0f12;
-  --surface: #141719;
-  --surface2: #1c1f23;
-  --border: #252a2f;
-  --border-active: #0a5fff;
-  --text: #e8eaed;
-  --text-muted: #6b7280;
-  --text-dim: #9ca3af;
-  --accent: #0a5fff;
-  --accent-hover: #1a6bff;
-  --accent-dim: rgba(10, 95, 255, 0.12);
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
+  --bg: #f5f7f5;
+  --surface: #ffffff;
+  --surface2: #edf2ed;
+  --border: #d1ddd1;
+  --border-active: #1a8a3a;
+  --text: #0d0d0d;
+  --text-muted: #5a6e5a;
+  --text-dim: #3a4e3a;
+  --accent: #1a8a3a;
+  --accent-hover: #157a30;
+  --accent-dim: rgba(26, 138, 58, 0.10);
+  --success: #157a30;
+  --warning: #b45309;
+  --danger: #b91c1c;
   --radius: 6px;
   --font: 'IBM Plex Sans', sans-serif;
   --mono: 'IBM Plex Mono', monospace;
@@ -62,7 +62,7 @@ header {
   justify-content: center;
   font-size: 14px;
   font-weight: 700;
-  color: white;
+  color: #ffffff;
   font-family: var(--mono);
 }
 
@@ -276,7 +276,7 @@ textarea[readonly] {
 
 .btn-primary {
   background: var(--accent);
-  color: white;
+  color: #ffffff;
 }
 
 .btn-primary:hover { background: var(--accent-hover); }
@@ -304,9 +304,9 @@ textarea[readonly] {
 }
 
 .status-bar.visible { opacity: 1; }
-.status-bar.error { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25); color: #fca5a5; }
-.status-bar.success { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); color: #6ee7b7; }
-.status-bar.info { background: var(--accent-dim); border: 1px solid rgba(10,95,255,0.2); color: #93c5fd; }
+.status-bar.error { background: rgba(185,28,28,0.07); border: 1px solid rgba(185,28,28,0.25); color: #991b1b; }
+.status-bar.success { background: rgba(21,122,48,0.08); border: 1px solid rgba(21,122,48,0.25); color: #145228; }
+.status-bar.info { background: var(--accent-dim); border: 1px solid rgba(26,138,58,0.25); color: #145228; }
 
 .status-bar svg { width: 14px; height: 14px; flex-shrink: 0; }
 
@@ -314,8 +314,8 @@ textarea[readonly] {
 .spinner {
   width: 14px;
   height: 14px;
-  border: 2px solid rgba(255,255,255,0.2);
-  border-top-color: white;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: #ffffff;
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }
